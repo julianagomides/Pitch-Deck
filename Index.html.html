@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laje ESG | Pack Comercial</title>
+  <style>
+    :root {
+      --blue: #0243B7;
+      --mint: #F1FFE6;
+      --green: #235859;
+      --lime: #D4D43C;
+      --graphite: #4F595E;
+      --ink: #121615;
+      --line: rgba(79, 89, 94, .22);
+      --soft-blue: rgba(2, 67, 183, .10);
+      --soft-green: rgba(35, 88, 89, .10);
+      --white: #fff;
+      --radius: 8px;
+      --max: 1180px;
+      --title: "Space Grotesk", "Arial", sans-serif;
+      --body: "DM Sans", "Segoe UI", Arial, sans-serif;
+      --mono: "Space Mono", "Consolas", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--graphite);
+      background: var(--white);
+      font-family: var(--body);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, .92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--ink);
+      font-family: var(--title);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 30px;
+      object-fit: cover;
+      object-position: left bottom;
+      display: block;
+      filter: contrast(110%);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--graphite);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a,
+    .action {
+      border: 1px solid transparent;
+      padding: 10px 12px;
+      border-radius: 999px;
+      color: var(--graphite);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav a:hover { border-color: var(--line); color: var(--green); }
+    .action {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+      font-weight: 700;
+    }
+
+    .topbar .action {
+      background: white;
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .topbar .action:hover {
+      background: var(--mint);
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: center;
+      padding: 64px 0 72px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: var(--lime);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--green);
+      font-family: var(--title);
+      letter-spacing: 0;
+      line-height: 1.02;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(50px, 8vw, 104px);
+      font-weight: 800;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 28px 0 0;
+      font-size: clamp(18px, 2vw, 24px);
+      color: var(--graphite);
+    }
+
+    .floating-proof {
+      position: relative;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      min-height: 360px;
+    }
+
+    .floating-proof::before {
+      content: "";
+      position: absolute;
+      right: -18px;
+      top: 36px;
+      width: 62%;
+      height: 54%;
+      background: var(--mint);
+      z-index: -1;
+    }
+
+    .proof-number {
+      font-family: var(--mono);
+      font-size: 56px;
+      line-height: 1;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+
+    .proof-title {
+      color: var(--ink);
+      font-family: var(--title);
+      font-size: 28px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .proof-list {
+      padding: 0;
+      margin: 26px 0 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .proof-list li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .proof-list li::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      margin-top: 8px;
+      background: var(--lime);
+    }
+
+    .recipe {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 32px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      max-width: 920px;
+    }
+
+    .recipe-item {
+      background: white;
+      padding: 18px;
+      min-height: 132px;
+    }
+
+    .recipe-item span {
+      display: block;
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .recipe-item strong {
+      display: block;
+      color: var(--green);
+      font-family: var(--title);
+      font-size: 20px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    section { padding: 86px 0; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(260px, .62fr) minmax(0, 1fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--lime);
+      padding: 18px;
+      background: white;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 62px);
+    }
+
+    .lead {
+      margin: 16px 0 0;
+      font-size: 19px;
+      color: var(--graphite);
+      max-width: 730px;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .evidence {
+      background: white;
+      min-height: 168px;
+      padding: 22px;
+    }
+
+    .evidence strong {
+      display: block;
+      color: var(--green);
+      font-family: var(--title);
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .pause {
+      background: var(--green);
+      color: white;
+      padding: 92px 0;
+    }
+
+    .pause h2,
+    .pause .section-kicker { color: white; }
+    .pause .section-kicker {
+      display: inline-flex;
+      min-height: 0;
+      border-color: rgba(255, 255, 255, .34);
+      border-left-color: var(--lime);
+      background: transparent;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+    }
+    .pause .section-kicker::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 2px;
+      margin-top: 18px;
+      background: var(--lime);
+    }
+
+    .pause h2 {
+      max-width: 840px;
+      font-size: clamp(34px, 6vw, 74px);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    .tab {
+      appearance: none;
+      cursor: pointer;
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--graphite);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 700;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .summary {
+      border: 1px solid var(--line);
+      padding: 26px;
+      border-radius: var(--radius);
+      position: sticky;
+      top: 100px;
+      background: white;
+    }
+
+    .summary h3 {
+      font-size: 36px;
+      margin-bottom: 18px;
+    }
+
+    .label {
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 18px 0 6px;
+    }
+
+    .path {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: white;
+    }
+
+    .step span {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      color: var(--blue);
+      background: var(--soft-blue);
+      border-radius: 50%;
+    }
+
+    .step h4 {
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-family: var(--title);
+      font-size: 20px;
+    }
+
+    .step p { margin: 0; }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 250px;
+    }
+
+    .tile h3 {
+      color: var(--ink);
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+
+    .tile ul,
+    .summary ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .tile li,
+    .summary li { margin-bottom: 8px; }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .module {
+      border-left: 2px solid var(--lime);
+      padding: 18px 18px 18px 22px;
+      background: linear-gradient(90deg, rgba(241, 255, 230, .66), white 64%);
+    }
+
+    .module strong {
+      color: var(--green);
+      font-family: var(--title);
+      font-size: 20px;
+    }
+
+    .questions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      background: white;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--green);
+      font-family: var(--title);
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .cta {
+      padding: 92px 0 104px;
+      background: white;
+    }
+
+    .cta-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(28px, 5vw, 58px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::after {
+      content: "*";
+      position: absolute;
+      right: 28px;
+      top: -10px;
+      color: var(--lime);
+      font-family: var(--title);
+      font-size: 132px;
+      line-height: 1;
+    }
+
+    .cta-box h2 { max-width: 860px; }
+
+    .cta-actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .secondary {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 12px 16px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      color: var(--graphite);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .nav { justify-content: flex-start; }
+      .hero-grid,
+      .section-head,
+      .panel-grid,
+      .matrix,
+      .recipe,
+      .modules,
+      .questions { grid-template-columns: 1fr; }
+      .evidence-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary { position: static; }
+      section { padding: 62px 0; }
+    }
+
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 28px, var(--max)); }
+      h1 { font-size: 44px; }
+      .evidence-grid { grid-template-columns: 1fr; }
+      .floating-proof { min-height: auto; }
+      .nav a, .action { font-size: 13px; padding: 9px 10px; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 14mm; }
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      html { scroll-behavior: auto; }
+      body {
+        color: #202625;
+        background: #fff;
+        font-size: 10.5pt;
+        line-height: 1.35;
+      }
+      .shell {
+        width: 100%;
+        max-width: none;
+      }
+      .topbar,
+      .tabs,
+      .cta-actions,
+      .brand-mark,
+      .floating-proof::before,
+      .cta-box::after {
+        display: none !important;
+      }
+      .hero {
+        min-height: 0;
+        display: block;
+        padding: 0 0 12mm;
+        break-after: page;
+      }
+      .hero-grid,
+      .section-head,
+      .panel-grid,
+      .matrix,
+      .modules,
+      .questions,
+      .recipe,
+      .evidence-grid {
+        display: block;
+      }
+      section {
+        padding: 0;
+        margin: 0 0 12mm;
+      }
+      .pause {
+        background: #fff;
+        color: var(--green);
+        border-top: 1px solid #cfd6d2;
+        border-bottom: 1px solid #cfd6d2;
+        padding: 8mm 0;
+        break-before: page;
+        break-after: page;
+      }
+      .pause h2,
+      .pause .section-kicker {
+        color: var(--green);
+      }
+      .panel {
+        display: block !important;
+        margin: 0 0 10mm;
+        break-before: page;
+      }
+      .summary,
+      .step,
+      .tile,
+      .recipe-item,
+      .module,
+      details,
+      .evidence,
+      .floating-proof,
+      .cta-box {
+        position: static;
+        border: 1px solid #cfd6d2;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 0 0 7mm;
+        background: #fff !important;
+      }
+      .floating-proof,
+      .summary,
+      .tile,
+      .recipe-item,
+      .module,
+      details,
+      .evidence,
+      .cta-box {
+        padding: 7mm;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 10mm 1fr;
+        padding: 5mm;
+      }
+      .step span {
+        width: 9mm;
+        height: 9mm;
+        background: transparent;
+        color: var(--blue);
+        border: 1px solid #cfd6d2;
+      }
+      details:not([open]) > :not(summary) {
+        display: block !important;
+      }
+      h1 { font-size: 34pt; }
+      h2 { font-size: 24pt; margin-bottom: 5mm; }
+      h3, .summary h3 { font-size: 17pt; }
+      .proof-number { font-size: 28pt; }
+      .lead, .hero p { font-size: 12pt; max-width: none; }
+      .section-kicker,
+      .eyebrow,
+      .label {
+        font-size: 8pt;
+      }
+      footer {
+        border-top: 1px solid #cfd6d2;
+        padding-top: 5mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#inicio" aria-label="Laje ESG Pack Comercial">
+        <img class="brand-mark" src="laje-brand-asset.png" alt="">
+        <span>LAJE ESG<small>Pack comercial 2026</small></span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#provas">Provas</a>
+        <a href="#trilhas">Trilhas</a>
+        <a href="#icp">ICPs</a>
+        <a href="#modulos">Módulos</a>
+        <a class="action" href="#diagnostico">Diagnóstico</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow">Tecnologia ESG para entretenimento, esporte e cultura</div>
+          <h1>Um cardápio para montar propostas ESG.</h1>
+          <p>Use esta ferramenta para escolher o público, identificar a dor comercial, combinar módulos de entrega e sair com uma proposta Laje ESG mais clara, defensável e adaptada ao contexto do cliente.</p>
+          <div class="recipe" aria-label="Como usar este cardápio comercial">
+            <div class="recipe-item"><span>01</span><strong>Escolha o público</strong><p>Realizadora, patrocinadora ou produtora audiovisual.</p></div>
+            <div class="recipe-item"><span>02</span><strong>Localize a dor</strong><p>Captação, reporte, reputação, edital ou bastidor responsável.</p></div>
+            <div class="recipe-item"><span>03</span><strong>Combine módulos</strong><p>Diagnóstico, plano, implementação, relatório, carteira ou capacitação.</p></div>
+            <div class="recipe-item"><span>04</span><strong>Monte a proposta</strong><p>Use perguntas, CTA e entregáveis para fechar o escopo.</p></div>
+          </div>
+        </div>
+        <aside class="floating-proof" aria-label="Tese comercial">
+          <div class="proof-number">03</div>
+          <div class="proof-title">trilhas comerciais para compor escopos.</div>
+          <p>Todo grande projeto deixa algo para trás. Este cardápio ajuda a selecionar a combinação certa de estratégia, operação, evidência e relatório para cada oportunidade.</p>
+          <ul class="proof-list">
+            <li>Realizadoras pedem escopos que aumentam captação e reputação.</li>
+            <li>Patrocinadoras pedem escopos que rastreiam investimento e impacto.</li>
+            <li>Produtoras pedem escopos que tornam bastidores mais responsáveis.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="provas">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Provas permitidas</div>
+          <div>
+            <h2>Use como base segura da proposta.</h2>
+            <p class="lead">Estas são as evidências que podem entrar no discurso comercial sem inflar a entrega. Números de maturidade, resíduos, água, GEE e público devem entrar apenas depois de validação quantitativa.</p>
+          </div>
+        </div>
+        <div class="evidence-grid">
+          <article class="evidence"><strong>Atuação</strong>Grandes eventos, entretenimento, cultura, esporte e produções de alta complexidade.</article>
+          <article class="evidence"><strong>Jornada</strong>Diagnóstico, implementação, mensuração, relatórios ESG e aprendizado operacional.</article>
+          <article class="evidence"><strong>Repertório</strong>AFROPUNK Brasil, Festival Negritudes, Festival de Verão, Festival de Inverno Bahia, CNI e Radioca.</article>
+          <article class="evidence"><strong>Dimensões</strong>Ambiental, social/acessibilidade e governança, com foco em evidências e rastreabilidade.</article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pause" aria-label="Pausa de marca">
+      <div class="shell">
+        <div class="section-kicker">Tese</div>
+        <h2>A proposta nasce da combinação certa: público, dor, módulo e evidência.</h2>
+      </div>
+    </section>
+
+    <section id="trilhas">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Trilhas comerciais</div>
+          <div>
+            <h2>Comece pelo cliente antes de escolher o escopo.</h2>
+            <p class="lead">As trilhas funcionam como entradas do cardápio. Cada público aponta uma dor, uma promessa, um CTA e um conjunto de módulos mais provável para a proposta.</p>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Públicos comerciais">
+          <button class="tab" type="button" role="tab" aria-selected="true" aria-controls="eventos" data-tab="eventos">Realizadoras</button>
+          <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="patrocinadoras" data-tab="patrocinadoras">Patrocinadoras</button>
+          <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="audiovisual" data-tab="audiovisual">Audiovisual</button>
+        </div>
+
+        <article id="eventos" class="panel active" role="tabpanel">
+          <div class="panel-grid">
+            <div class="summary">
+              <h3>Realizadoras de eventos</h3>
+              <p>Para produtoras, festivais, eventos culturais, congressos e realizadoras que dependem de patrocínio, edital, reputação ou apoio institucional.</p>
+              <div class="label">Promessa</div>
+              <p>ESG deixa de ser barreira operacional e vira vantagem para captação, reputação e entrega.</p>
+              <div class="label">CTA</div>
+              <p>Mapear o nível de maturidade ESG do evento.</p>
+              <div class="label">Módulos prováveis</div>
+              <p>Diagnóstico ESG Maturity, plano ESG, implementação em campo e relatório de encerramento.</p>
+            </div>
+            <div class="path">
+              <div class="step"><span>01</span><div><h4>Legado medido</h4><p>Todo grande evento deixa algo para trás. A diferença está em planejar, executar, medir e provar.</p></div></div>
+              <div class="step"><span>02</span><div><h4>ESG como acesso</h4><p>Sustentabilidade influencia captação, editais, marcas e licença social.</p></div></div>
+              <div class="step"><span>03</span><div><h4>Do diagnóstico ao relatório</h4><p>ESG Maturity, plano de ação, implementação, coleta de evidências, mensuração e relatório.</p></div></div>
+              <div class="step"><span>04</span><div><h4>Ganhos comerciais</h4><p>Argumento para patrocínio, redução de risco, legado claro e maturidade para próximas edições.</p></div></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="patrocinadoras" class="panel" role="tabpanel">
+          <div class="panel-grid">
+            <div class="summary">
+              <h3>Patrocinadoras</h3>
+              <p>Para marcas com agenda ESG, investimento recorrente em eventos e necessidade de defender impacto perante marketing, sustentabilidade e comunicação.</p>
+              <div class="label">Promessa</div>
+              <p>Patrocínio vira evidência rastreável de impacto.</p>
+              <div class="label">CTA</div>
+              <p>Mapear eventos patrocinados e definir critérios ESG.</p>
+              <div class="label">Módulos prováveis</div>
+              <p>Critérios de carteira, auditoria operacional, relatório executivo e padronização de indicadores.</p>
+            </div>
+            <div class="path">
+              <div class="step"><span>01</span><div><h4>Mais que exposição</h4><p>Eventos geram visibilidade. Com método, também geram evidência defensável.</p></div></div>
+              <div class="step"><span>02</span><div><h4>Gap de reporte</h4><p>Marcas investem, mas recebem dados insuficientes, pouco comparáveis e fragilmente conectados ao ESG.</p></div></div>
+              <div class="step"><span>03</span><div><h4>Rastreabilidade</h4><p>Objetivos, critérios, indicadores, execução, evidências, relatório e recomendações.</p></div></div>
+              <div class="step"><span>04</span><div><h4>Carteira ESG</h4><p>Padronização mínima entre eventos para gerar aprendizado, comparabilidade e reputação.</p></div></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="audiovisual" class="panel" role="tabpanel">
+          <div class="panel-grid">
+            <div class="summary">
+              <h3>Produtoras de audiovisual</h3>
+              <p>Para cinema, publicidade, streaming, branded content e produções com sets, fornecedores, deslocamentos, locações e prestação de contas.</p>
+              <div class="label">Promessa</div>
+              <p>Bastidores sustentáveis, inclusivos e reportáveis viram diferencial competitivo.</p>
+              <div class="label">CTA</div>
+              <p>Escolher uma produção-piloto e aplicar plano ESG do pré ao pós.</p>
+              <div class="label">Módulos prováveis</div>
+              <p>Piloto ESG, protocolo de set, critérios para fornecedores, inventário e relatório de produção.</p>
+            </div>
+            <div class="path">
+              <div class="step"><span>01</span><div><h4>História fora da tela</h4><p>A produção também comunica como contrata, consome, descarta, inclui e protege.</p></div></div>
+              <div class="step"><span>02</span><div><h4>Set sem improviso</h4><p>Boas intenções não bastam quando a produção precisa de método e evidência.</p></div></div>
+              <div class="step"><span>03</span><div><h4>Ciclo da produção</h4><p>Pré-produção, set/filmagem e pós-produção com critérios, execução e relatório.</p></div></div>
+              <div class="step"><span>04</span><div><h4>Piloto ESG</h4><p>Uma produção-piloto cria metodologia, reduz risco e abre caminho para carteira.</p></div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="icp">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">ICP e qualificação</div>
+          <div>
+            <h2>Vender melhor com menos dispersão.</h2>
+            <p class="lead">Priorize leads com projeto real, dor econômica clara, acesso ao decisor, janela operacional e necessidade de evidência final.</p>
+          </div>
+        </div>
+        <div class="matrix">
+          <article class="tile">
+            <h3>Evento patrocinado</h3>
+            <p><strong>Alta prioridade:</strong> evento grande com patrocinador exigindo ESG.</p>
+            <ul><li>Alta exposição pública</li><li>Dependência de captação</li><li>Necessidade de relatório</li></ul>
+          </article>
+          <article class="tile">
+            <h3>Marca com carteira</h3>
+            <p><strong>Alta prioridade:</strong> marca com vários eventos e agenda ESG pública.</p>
+            <ul><li>Recorrência</li><li>Maior ticket</li><li>Comparabilidade</li></ul>
+          </article>
+          <article class="tile">
+            <h3>Produtora premium</h3>
+            <p><strong>Media-alta prioridade:</strong> produtora que atende grandes marcas ou editais.</p>
+            <ul><li>Vertical promissora</li><li>Diferencial pioneiro</li><li>Começar por piloto</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modulos">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Cardápio de módulos</div>
+          <div>
+            <h2>Combine módulos para montar o escopo.</h2>
+            <p class="lead">A proposta não precisa vender tudo de uma vez. O cardápio permite entrar por diagnóstico, expandir para implementação, fechar com relatório e evoluir para carteira ou capacitação.</p>
+          </div>
+        </div>
+        <div class="modules">
+          <div class="module"><strong>Diagnóstico ESG Maturity</strong><p>Maturidade, riscos e prioridades para eventos e produções.</p></div>
+          <div class="module"><strong>Plano ESG</strong><p>Ações, responsabilidades, critérios e indicadores por eixo E/S/G.</p></div>
+          <div class="module"><strong>Implementação ESG</strong><p>Execução em campo, fornecedores, equipe, acessibilidade, resíduos e evidências.</p></div>
+          <div class="module"><strong>Relatório ESG</strong><p>Evidências, indicadores, narrativa e recomendações de próxima edição.</p></div>
+          <div class="module"><strong>Carteira ESG</strong><p>Padronização e comparabilidade para marcas e produtoras com vários projetos.</p></div>
+          <div class="module"><strong>Capacitação</strong><p>Maturidade operacional para equipes, fornecedores e parceiros.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnostico">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Diagnóstico comercial</div>
+          <div>
+            <h2>Perguntas que transformam conversa em proposta.</h2>
+            <p class="lead">Use estas perguntas para descobrir qual dor domina, quais módulos fazem sentido e onde começa o escopo comercial.</p>
+          </div>
+        </div>
+        <div class="questions">
+          <details open>
+            <summary>Realizadoras</summary>
+            <ul>
+              <li>Qual é o porte e formato do evento?</li>
+              <li>O evento depende de patrocínio ou edital?</li>
+              <li>Quais exigências ESG já apareceram?</li>
+              <li>Quem precisa receber o relatório final?</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Patrocinadoras</summary>
+            <ul>
+              <li>Quais eventos a marca patrocina?</li>
+              <li>Que objetivos ESG estão ligados a esses eventos?</li>
+              <li>Que dados a marca recebe hoje?</li>
+              <li>O foco é evento específico ou carteira?</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Audiovisual</summary>
+            <ul>
+              <li>Qual tipo de produção vocês fazem?</li>
+              <li>Existe exigência ESG do cliente ou edital?</li>
+              <li>Quais impactos preocupam mais?</li>
+              <li>O melhor início é piloto ou metodologia de carteira?</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="shell">
+        <div class="cta-box">
+          <div class="section-kicker">Próximo movimento</div>
+          <h2>Use o cardápio para montar a próxima proposta.</h2>
+          <p class="lead">Escolha a trilha, selecione os módulos, valide os dados disponíveis e transforme a combinação em deck, proposta comercial ou landing page.</p>
+          <div class="cta-actions">
+            <a class="action" href="#trilhas">Ver trilhas</a>
+            <a class="secondary" href="pack-comercial-laje-esg.md">Abrir pack mestre</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">Laje ESG | Pack Comercial | Sistema cromático white-first aplicado a partir do guia de marca 2026.</div>
+  </footer>
+
+  <script>
+    const tabs = [...document.querySelectorAll(".tab")];
+    const panels = [...document.querySelectorAll(".panel")];
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+        tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+        panels.forEach((panel) => panel.classList.toggle("active", panel.id === target));
+      });
+    });
+  </script>
+</body>
+</html>
